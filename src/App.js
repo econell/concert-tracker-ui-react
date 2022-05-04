@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Navigation from './components/Navigation';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Artist from './components/artist/Artist';
+import Api from './api/Api';
 
 function App() {
+
+  const [api] = useState(new Api());
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navigation />
+      <Switch>
+        <Route
+          path='/'
+          exact={true}
+          render={(props) => <Artist {...props} api={api} />}
+        />
+      </Switch>
+    </Router>
   );
 }
 
